@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="oraculo-token" content="__SESSION_TOKEN__">
+  <title>Revisão de regras — Oráculo</title>
+  <link rel="stylesheet" href="/review.css">
+  <script src="/review.js" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">◈</span><span>Oráculo</span><span class="brand-separator">/</span><span class="brand-section">Revisão de regras</span></div>
+    <div class="progress" aria-live="polite"><span id="progress-label">Carregando catálogo…</span><span class="progress-track"><span id="progress-fill"></span></span></div>
+  </header>
+
+  <main class="workspace">
+    <aside class="library" aria-label="Itens do catálogo">
+      <div class="library-head">
+        <h1>Biblioteca de regras</h1>
+        <p>Leia a fonte antes de aprovar cada item.</p>
+        <label class="search-label" for="search">Buscar pelo nome</label>
+        <input id="search" type="search" placeholder="Ex.: Acrobacia, Dano, Voo" autocomplete="off">
+      </div>
+      <div class="filters" id="filters" aria-label="Filtrar por categoria"></div>
+      <div class="view-toggle" role="group" aria-label="Filtrar por situação">
+        <button type="button" data-view="pending" class="active">Pendentes</button>
+        <button type="button" data-view="all">Todos</button>
+        <button type="button" data-view="approved">Aprovados</button>
+      </div>
+      <p class="list-count" id="list-count"></p>
+      <div class="item-list" id="item-list" role="list"></div>
+    </aside>
+
+    <section class="reading-room" aria-labelledby="item-title">
+      <div class="empty-state" id="empty-state">
+        <span class="empty-glyph" aria-hidden="true">◈</span>
+        <h2>Escolha um item para ler</h2>
+        <p>Confira o texto extraído e a página do PDF. Só então marque sua decisão.</p>
+      </div>
+      <article class="document" id="document" hidden>
+        <div class="document-topline"><span id="item-category"></span><span id="item-state" class="state-badge"></span></div>
+        <h2 id="item-title"></h2>
+        <div class="source-row"><span id="item-pages"></span><a id="pdf-link" href="/source.pdf" target="_blank" rel="noopener noreferrer">Abrir página no PDF ↗</a></div>
+        <p class="review-note">Esta é uma extração automática. Confira se o trecho pertence ao item, se está completo e se as tabelas correspondem ao texto.</p>
+        <div class="text-heading"><h3>Texto usado nas respostas</h3><span id="edited-badge" class="edited-badge" hidden>Texto editado</span></div>
+        <div id="item-text" class="source-text"></div>
+        <div id="editor" class="editor" hidden>
+          <label for="edit-text">Edite o trecho e remova o que não pertence a este item</label>
+          <textarea id="edit-text" spellcheck="true"></textarea>
+          <p>Ao salvar, esta versão substitui o trecho consultado pelo comando ask e volta a ficar pendente de aprovação.</p>
+          <div class="editor-actions">
+            <button type="button" id="cancel-edit" class="quiet-button">Cancelar</button>
+            <button type="button" id="save-edit" class="approve-button">Salvar texto</button>
+          </div>
+        </div>
+        <details id="original-panel" class="original-panel" hidden>
+          <summary>Ver texto extraído originalmente</summary>
+          <div id="original-text" class="source-text"></div>
+        </details>
+        <div class="decision-bar">
+          <div class="decision-copy" id="decision-copy">A aprovação fica vinculada a esta versão exata do trecho.</div>
+          <div class="decision-actions">
+            <button type="button" id="edit" class="quiet-button">Editar texto</button>
+            <button type="button" id="restore" class="quiet-button" hidden>Restaurar original</button>
+            <button type="button" id="reopen" class="quiet-button">Voltar para revisão</button>
+            <button type="button" id="approve" class="approve-button">Aprovar item</button>
+            <button type="button" id="next" class="next-button">Próximo pendente</button>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+  <div id="notice" role="status" aria-live="polite" class="notice" hidden></div>
+</body>
+</html>

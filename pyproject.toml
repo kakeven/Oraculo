@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "oraculo-ingest"
+version = "0.1.0"
+description = "Protótipo local de mestre de RPG por IA com regras rastreáveis"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["pypdf>=5,<7"]
+
+[project.optional-dependencies]
+embeddings = ["sentence-transformers>=3,<6", "numpy>=1.26,<3"]
+openai = ["openai>=1.100", "pydantic>=2,<3"]
+auth = ["openai>=1.100", "PyJWT[crypto]>=2.10,<3", "keyring>=25,<27"]
+dev = ["pytest>=8,<10", "reportlab>=4,<5"]
+
+[project.scripts]
+oraculo = "oraculo_ingest.cli:main"
+oraculo-campaign = "oraculo_ingest.campaign_cli:main"
+oraculo-auth = "oraculo_ingest.auth_cli:main"
+oraculo-review = "oraculo_ingest.review_server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+oraculo_ingest = ["web/*.html", "web/*.css", "web/*.js"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
